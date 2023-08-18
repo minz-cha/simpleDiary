@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .DiaryEditor {
   border: 1px solid gray;
   text-align: center;
@@ -28,6 +29,13 @@ textarea {
 }
 
 /* .App-logo {
+=======
+.App {
+  text-align: center;
+}
+
+.App-logo {
+>>>>>>> a100d4b6e39679442ee073b2b18684aecdaf66d4
   height: 40vmin;
   pointer-events: none;
 }
@@ -60,4 +68,8 @@ textarea {
   to {
     transform: rotate(360deg);
   }
+<<<<<<< HEAD
 } */
+=======
+}
+>>>>>>> a100d4b6e39679442ee073b2b18684aecdaf66d4
