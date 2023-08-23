@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-const DiaryEditor = () => {
+const DiaryEditor = ({ onCreate }) => {
     const authorInput = useRef();
     const contentInput = useRef();
 
@@ -10,7 +10,7 @@ const DiaryEditor = () => {
         emotion: 1
     })
 
-    const handleChangeStaete = (e) => {
+    const handleChangeState = (e) => {
         setState({
             ...state,
             [e.target.name]: e.target.value
@@ -29,7 +29,13 @@ const DiaryEditor = () => {
             contentInput.current.focus();
             return;
         }
+        onCreate(state.author, state.content, state.emotion)
         alert("저장 성공!")
+        setState({
+            author: "",
+            content: "",
+            emotion: 1
+        })
     }
 
     return (
@@ -40,7 +46,7 @@ const DiaryEditor = () => {
                     ref={authorInput}
                     name="author"
                     value={state.author}
-                    onChange={handleChangeStaete}
+                    onChange={handleChangeState}
                 />
             </div>
             <div>
@@ -48,7 +54,7 @@ const DiaryEditor = () => {
                     ref={contentInput}
                     name="content"
                     value={state.content}
-                    onChange={handleChangeStaete}
+                    onChange={handleChangeState}
                 />
             </div>
             <div>
@@ -56,7 +62,7 @@ const DiaryEditor = () => {
                 <select
                     name="emotion"
                     value={state.emotion}
-                    onChange={handleChangeStaete}
+                    onChange={handleChangeState}
                 >
                     <option value={1}>1</option>
                     <option value={2}>2</option>
