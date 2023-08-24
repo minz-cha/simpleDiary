@@ -1,39 +1,25 @@
 import React, { useEffect, useState } from "react"
 
-const Lifecycle = () => {
-    const [count, setCount] = useState(0)
-    const [text, setText] = useState("")
-
-    //컴포넌트가 Mount 되는 시점에만 제어
+const UnmountTest = () => {
     useEffect(() => {
         console.log("Mount!")
-    }, [])
 
-    //컴포넌트가 업데이트 되는 경우를 제어
-    useEffect(() => {
-        console.log("Update!")
-    })
-
-    //dependency array에 있는 값이 변화 -> 앞에 있는 콜백함수 수행됨
-    useEffect(() => {
-        if (count > 5) {
-            alert(`count값이 5를 넘었습니다. 따라서 1로 초기화합니다.`)
-            setCount(1)
+        //Mount를 제어하는 useEffect에서 전달되는 콜백함수가 리턴하는것  
+        // -> Unmount 되는 시점에 return
+        return () => {
+            console.log("Unmount!")
         }
-    }, [count])
+    }, [])
+    return <div>Unmount Testing Component</div>
+}
 
-    useEffect(() => {
-        console.log(`text is update: ${text}`)
-    }, [text])
+const Lifecycle = () => {
+    const [isVisible, setIsVisible] = useState(false)
+    const toggle = () => setIsVisible(!isVisible)
 
     return <div style={{ padding: 20 }}>
-        <div>
-            {count}
-            <button onClick={() => setCount(count + 1)}> + </button>
-        </div>
-        <div>
-            <input value={text} onChange={(e) => setText(e.target.value)} />
-        </div>
+        <button onClick={toggle}>ON/OFF</button>
+        {isVisible && <UnmountTest />}
     </div>
 }
 
