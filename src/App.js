@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
-import './App.css';
-import DiaryEditor from './DiaryEditor';
-import DiaryList from './DiaryList';
+import { useEffect, useRef, useState } from 'react'
+import './App.css'
+import DiaryEditor from './DiaryEditor'
+import DiaryList from './DiaryList'
 
 //https://jsonplaceholder.typicode.com/comments
 
 function App() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([])
   const dataId = useRef(0)
 
   //비동기함수
@@ -20,21 +20,22 @@ function App() {
         content: it.body,
         //emotion 값은 정수 1~5 랜덤값 생성
         emotion: Math.floor(Math.random() * 5) + 1,
-        created_date: new Date().getTime(),
+        created_date: new Date().getTime() + 1,
         id: dataId.current++
       }
     })
-
     setData(initData)
   }
 
   //Mount
   useEffect(() => {
-    getData()
+    setTimeout(() => {
+      getData()
+    }, 1500)
   }, [])
 
   const onCreate = (author, content, emotion) => {
-    const created_date = new Date().getTime();
+    const created_date = new Date().getTime()
     const newItem = {
       author, content, emotion, created_date,
       id: dataId.current
@@ -52,7 +53,8 @@ function App() {
   const onEdit = (targetId, newContent) => {
     setData(
       data.map((it) =>
-        it.id === targetId ? { ...it, content: newContent } : it)
+        it.id === targetId ? { ...it, content: newContent } : it
+      )
     )
   }
 
@@ -64,4 +66,4 @@ function App() {
   );
 }
 
-export default App;
+export default App

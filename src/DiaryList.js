@@ -1,7 +1,7 @@
-import DiaryItem from "./DiaryItem";
+import DiaryItem from "./DiaryItem"
 
 const DiaryList = ({ onEdit, onRemove, diaryList }) => {
-    console.log(diaryList);
+    console.log(diaryList)
     return (
         <div className="DiaryList">
             <h2>일기 리스트</h2>
@@ -19,4 +19,4 @@ DiaryList.defaultProps = {
     diaryList: []
 }
 
-export default DiaryList;
+export default DiaryList 

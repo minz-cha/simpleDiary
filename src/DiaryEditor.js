@@ -40,7 +40,7 @@ const DiaryEditor = ({ onCreate }) => {
 
     return (
         <div className="DiaryEditor">
-            <h2>오늘의 일기장</h2>
+            <h2>오늘의 일기</h2>
             <div>
                 <input
                     ref={authorInput}
