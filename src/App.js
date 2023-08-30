@@ -1,8 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 import DiaryEditor from './DiaryEditor'
 import DiaryList from './DiaryList'
-import OptimizeTest from './OptimizeTest'
 
 function App() {
   const [data, setData] = useState([])
@@ -19,7 +18,7 @@ function App() {
         content: it.body,
         //emotion 값은 정수 1~5 랜덤값 생성
         emotion: Math.floor(Math.random() * 5) + 1,
-        created_date: new Date().getTime() + 1,
+        created_date: new Date().getTime(),
         id: dataId.current++
       }
     })
@@ -33,7 +32,7 @@ function App() {
     }, 1500)
   }, [])
 
-  const onCreate = (author, content, emotion) => {
+  const onCreate = useCallback((author, content, emotion) => {
     const created_date = new Date().getTime()
     const newItem = {
       author, content, emotion, created_date,
@@ -41,8 +40,8 @@ function App() {
     }
     //기존 데이터의 위에 새로운 data 추가
     dataId.current += 1
-    setData([newItem, ...data])
-  }
+    setData((data) => [newItem, ...data])
+  }, [])
 
   const onRemove = (targetId) => {
     const newDiaryList = data.filter((it) => it.id !== targetId)
@@ -58,9 +57,13 @@ function App() {
   }
 
   const getDiaryAnalysis = useMemo(() => {
+    if (data.length === 0) {
+      return { goodcount: 0, badCount: 0, goodRatio: 0 }
+    }
+
     const goodCount = data.filter((it) => it.emotion >= 3).length
     const badCount = data.length - goodCount
-    const goodRatio = (goodCount / data.length) * 100
+    const goodRatio = (goodCount / data.length) * 100.0
     return { goodCount, badCount, goodRatio }
   }, [data.length])
 
@@ -68,7 +71,6 @@ function App() {
 
   return (
     <div className='App'>
-      <OptimizeTest />
       <DiaryEditor onCreate={onCreate} />
       <div>전체 일기: {data.length}</div>
       <div>기분 좋은 일기 개수: {goodCount}</div>

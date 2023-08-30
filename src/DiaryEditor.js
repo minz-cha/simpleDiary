@@ -1,6 +1,9 @@
-import { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const DiaryEditor = ({ onCreate }) => {
+
+    useEffect(() => (console.log(`DiaryEditior 렌더`)))
+
     const authorInput = useRef();
     const contentInput = useRef();
 
@@ -18,7 +21,6 @@ const DiaryEditor = ({ onCreate }) => {
     }
 
     const handleSubmit = () => {
-        console.log(state);
         if (state.author.length < 1) {
             alert("작성자는 최소 1글자 이상 입력해주세요");
             authorInput.current.focus();
@@ -78,4 +80,4 @@ const DiaryEditor = ({ onCreate }) => {
     );
 };
 
-export default DiaryEditor;
+export default React.memo(DiaryEditor)
