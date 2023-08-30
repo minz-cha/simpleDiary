@@ -43,18 +43,19 @@ function App() {
     setData((data) => [newItem, ...data])
   }, [])
 
-  const onRemove = (targetId) => {
-    const newDiaryList = data.filter((it) => it.id !== targetId)
-    setData(newDiaryList)
-  }
 
-  const onEdit = (targetId, newContent) => {
-    setData(
+  const onRemove = useCallback((targetId) => {
+    //최신 state를 사용하기 위해.. (newDiaryList)
+    setData(data => data.filter((it) => it.id !== targetId))
+  }, [])
+
+  const onEdit = useCallback((targetId, newContent) => {
+    setData((data) =>
       data.map((it) =>
         it.id === targetId ? { ...it, content: newContent } : it
       )
     )
-  }
+  }, [])
 
   const getDiaryAnalysis = useMemo(() => {
     if (data.length === 0) {

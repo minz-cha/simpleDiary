@@ -1,8 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 const DiaryEditor = ({ onCreate }) => {
-
-    useEffect(() => (console.log(`DiaryEditior 렌더`)))
 
     const authorInput = useRef();
     const contentInput = useRef();
@@ -47,6 +45,7 @@ const DiaryEditor = ({ onCreate }) => {
                 <input
                     ref={authorInput}
                     name="author"
+                    placeholder="작성자"
                     value={state.author}
                     onChange={handleChangeState}
                 />
@@ -55,6 +54,7 @@ const DiaryEditor = ({ onCreate }) => {
                 <textarea
                     ref={contentInput}
                     name="content"
+                    placeholder="내용"
                     value={state.content}
                     onChange={handleChangeState}
                 />
